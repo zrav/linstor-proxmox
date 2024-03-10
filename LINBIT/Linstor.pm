@@ -210,19 +210,6 @@ sub create_resource {
 
     create_resource_res_group(@_);
 
-    my $ret = $self->{cli}->PUT(
-        "/v1/resource-definitions/$name",
-        encode_json(
-            {
-                override_props =>
-                  { 'DrbdOptions/Net/allow-two-primaries' => 'yes' }
-            }
-        )
-    );
-    dieContent "Could not set allow-two-primaries on resource definition $name",
-      $ret
-      unless $ret->responseCode() eq '200';
-
     return 1;
 }
 
